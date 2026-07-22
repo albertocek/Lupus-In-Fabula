@@ -8,7 +8,18 @@ const app = Vue.createApp({
         }
     },
 
-    methods: {}
+    methods: {
+        aggiungiGiocatore(){
+            if (this.nuovoGiocatore != ""){
+                this.giocatori.push({nome : this.nuovoGiocatore, ruolo : null, vivo : true})
+                this.nuovoGiocatore=""
+            }
+        },
+
+        rimuoviGiocatore(index){
+            this.giocatori.splice(index, 1)
+        }
+    }
 
 });
 app.mount("#app")

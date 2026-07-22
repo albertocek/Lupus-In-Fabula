@@ -7,10 +7,50 @@
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <title>Lupus in Fabula</title>
 </head>
-<body>
-    <div id="app">
-        <h1>Prova prova prova</h1>
-        <h2>Stato attuale {{fase}}</h2>
+<body class="bg-gray-900 text-white h-screen overflow-hidden font-sans">
+    
+    <!-- Contenitore Mobile-First: max-w-md blocca la larghezza a quella di uno smartphone, mx-auto lo centra su schermi grandi -->
+    <div id="app" class="max-w-md mx-auto h-full flex flex-col bg-gray-900 shadow-2xl">
+
+        <!-- HEADER: Fisso in alto -->
+        <header class="py-6 text-center border-b border-gray-800">
+            <h1 class="text-3xl font-bold text-red-600 tracking-wider">LUPUS</h1>
+            <p class="text-gray-400 text-sm mt-1">Setup Giocatori</p>
+        </header>
+
+        <!-- MAIN: Area flessibile che prende lo spazio rimanente (flex-1) e permette lo scroll (overflow-y-auto) -->
+        <main class="flex-1 overflow-y-auto p-5">
+            
+            <!-- ZONA INPUT -->
+            <div class="flex mb-8 shadow-lg">
+                <input type="text" 
+                v-model="nuovoGiocatore" 
+                placeholder="Nome giocatore..."
+                class="flex-1 bg-gray-800 text-white px-4 py-3 rounded-l-xl border border-gray-700 focus:outline-none focus:border-red-500">
+                <button @click="aggiungiGiocatore"
+                class="bg-red-600 hover:bg-red-700 text-white font-bold px-6 py-3 rounded-r-xl transition-colors">
+                    Aggiungi
+                </button>
+            </div>
+
+            <!-- ZONA LISTA -->
+            <ul class="space-y-3">
+                <li v-for="(giocatore, index) in giocatori" 
+                class="flex justify-between items-center bg-gray-800 p-4 rounded-xl border border-gray-700 shadow-sm">
+                    <span class="font-bold text-lg text-gray-100">{{ giocatore.nome }}</span>
+                    
+                    <button @click="rimuoviGiocatore(index)"
+                    class="text-gray-500 hover:text-red-500 font-bold p-2 transition-colors">
+                    ✕
+                    </button>
+                </li>
+            </ul>
+            
+        </main>
     </div>
-<script src="app.js"></script></body>
+
+    <!-- Script logico -->
+    <script src="app.js"></script>
+</body>
+</body>
 </html>
