@@ -3,14 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&amp;family=Manrope:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <title>Lupus in Fabula</title>
 </head>
-<body class="bg-gray-900 text-white h-screen overflow-hidden font-sans">
+<body class="bg-[#07080d] h-screen overflow-hidden font-['Manrope']">
     
     <!-- Contenitore Mobile-First: max-w-md blocca la larghezza a quella di uno smartphone, mx-auto lo centra su schermi grandi -->
-    <div id="app" class="max-w-md mx-auto h-full flex flex-col bg-gray-900 shadow-2xl">
+    <div id="app" class="max-w-md mx-auto h-full flex flex-col bg-[#07080d] shadow-2xl">
 
         <!-- HEADER: Fisso in alto -->
         <header class="py-6 text-center border-b border-gray-800">
@@ -23,7 +24,7 @@
                         <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
                     </svg>
                 </button>
-                <h1 class="text-3xl font-bold text-red-600 tracking-wider text-center">LUPUS</h1>
+                <h1 class="text-3xl font-['Cinzel'] text-[#d8b46a] tracking-wider text-center">LUPUS</h1>
                 <div class="w-12 h-12">
             <!-- Inserirai qui il tuo futuro bottone -->
                 </div>
@@ -41,27 +42,27 @@
                     <input type="text" 
                     v-model="nuovoGiocatore" 
                     placeholder="Nome giocatore..."
-                    class="flex-1 bg-gray-800 text-white px-4 py-3 rounded-l-xl border border-gray-700 focus:outline-none focus:border-red-500">
+                    class="flex-1 bg-[#1a1f31] text-white px-4 py-3 rounded-l-xl border border-[#2c3350] focus:outline-none focus:border-[#d8b46a]">
                     <button @click="aggiungiGiocatore"
-                    class="bg-red-600 hover:bg-red-700 text-white font-bold px-6 py-3 rounded-r-xl transition-colors">
+                    class="bg-[#c99b45] hover:bg-[#a87f37] text-white font-bold px-6 py-3 rounded-r-xl transition-colors">
                         Aggiungi
                     </button>
                 </div>
 
                 <button @click="sceltaRuoli"
-                    class="w-full mb-12 bg-red-600 hover:bg-red-700 text-white font-bold py-4 rounded-xl transition-colors shadow-lg"
+                    class="w-full mb-12 bg-[#c99b45] hover:bg-[#a87f37] text-white font-bold py-4 rounded-xl transition-colors shadow-lg"
                     :disabled="giocatori.length < 3">
                     Scegli Ruoli
                 </button>
 
                 <!-- ZONA LISTA -->
                 <ul class="space-y-3">
-                    <li v-for="(giocatore, index) in giocatori" 
-                    class="flex justify-between items-center bg-gray-800 p-4 rounded-xl border border-gray-700 shadow-sm">
+                    <li v-for="(giocatore, index) in giocatori"
+                    class="flex justify-between items-center bg-[#1a1f31] p-4 rounded-xl border border-[#2c3350] shadow-sm">
                         <span class="font-bold text-lg text-gray-100">{{ giocatore.nome }}</span>
-                        
+
                         <button @click="rimuoviGiocatore(index)"
-                        class="text-gray-500 hover:text-red-500 font-bold p-2 transition-colors">
+                        class="text-gray-500 hover:text-[#c0453f] font-bold p-2 transition-colors">
                         ✕
                         </button>
                     </li>
@@ -72,7 +73,7 @@
                 <ul class="space-y-10 mt-4 pb-10">
                     
                     <!-- IL SINGOLO RUOLO -->
-                    <li v-for="(quantita, ruolo) in ruoliSpeciali" :key="ruolo" class="w-full flex flex-col items-center bg-gray-800 p-6 rounded-2xl border border-gray-700 shadow-md">
+                    <li v-for="(quantita, ruolo) in ruoliSpeciali" :key="ruolo" class="w-full flex flex-col items-center bg-[#1a1f31] p-6 rounded-2xl border border-[#2c3350] shadow-md">
                         
                         <!-- Nome del ruolo (con prima lettera maiuscola) -->
                         <h3 class="text-xl font-bold text-gray-100 mb-5 capitalize">{{ ruolo }}</h3>
@@ -81,31 +82,31 @@
                         <div class="relative">
                             
                             <!-- AVATAR / FOTO (Il Cerchio Base) -->
-                            <div class="w-32 h-32 bg-gray-700 rounded-full border-4 border-gray-600 flex items-center justify-center overflow-hidden">
+                            <div class="w-32 h-32 bg-[#20263c] rounded-full border-4 border-[#2c3350] flex items-center justify-center overflow-hidden">
                                 <!-- Segnaposto: qui un domani inserirai il tag <img src="..."> -->
                                 <span class="text-gray-500 font-semibold text-sm">FOTO</span>
                             </div>
 
-                            <!-- CONTROLLI SOVRAPPOSTI: 'absolute' lo sgancia dal flusso della pagina. 
+                            <!-- CONTROLLI SOVRAPPOSTI: 'absolute' lo sgancia dal flusso della pagina.
                                 -bottom-4 lo spinge giù fuori dal cerchio.
                                 left-1/2 e -translate-x-1/2 lo centrano matematicamente sull'asse orizzontale. -->
-                            <div class="absolute -bottom-4 left-1/2 transform -translate-x-1/2 flex items-center gap-3 bg-gray-900 p-1.5 rounded-full border border-gray-700 shadow-xl">
-                                
+                            <div class="absolute -bottom-4 left-1/2 transform -translate-x-1/2 flex items-center gap-3 bg-[#07080d] p-1.5 rounded-full border border-[#2c3350] shadow-xl">
+
                                 <!-- Tasto Meno -->
                                 <button @click="decrementaRuolo(ruolo)"
-                                :disabled="ruoliSpeciali[ruolo] === 0" 
-                                class="w-10 h-10 rounded-full bg-gray-700 hover:bg-red-600 text-white text-xl font-bold flex items-center justify-center transition-colors">
+                                :disabled="ruoliSpeciali[ruolo] === 0"
+                                class="w-10 h-10 rounded-full bg-[#20263c] hover:bg-[#c99b45] text-white text-xl font-bold flex items-center justify-center transition-colors">
                                     -
                                 </button>
-                                
+
                                 <!-- Contatore -->
                                 <span class="w-6 text-center font-bold text-white text-lg">
                                     {{ quantita }}
                                 </span>
-                                
+
                                 <!-- Tasto Più -->
                                 <button @click="incrementaRuolo(ruolo)"
-                                class="w-10 h-10 rounded-full bg-gray-700 hover:bg-red-600 text-white text-xl font-bold flex items-center justify-center transition-colors">
+                                class="w-10 h-10 rounded-full bg-[#20263c] hover:bg-[#c99b45] text-white text-xl font-bold flex items-center justify-center transition-colors">
                                     +
                                 </button>
 
@@ -115,7 +116,7 @@
                     </li>
                 </ul>
                 <button @click="cominciaPartita()"
-                    class="w-full mb-12 bg-red-600 hover:bg-red-700 text-white font-bold py-4 rounded-xl transition-colors shadow-lg"
+                    class="w-full mb-12 bg-[#c99b45] hover:bg-[#a87f37] text-white font-bold py-4 rounded-xl transition-colors shadow-lg"
                     :disabled="ruoliSpeciali['lupo'] < 1">
                     Comincia la partita
                 </button>
@@ -126,7 +127,7 @@
                 <div class="h-48 flex flex-col justify-center items-center text-center px-4">
                     <template v-if="!ruoloVisibile">
                         <h2 class="text-3xl font-bold text-white mb-2">Passa il telefono a:</h2>
-                        <h1 class="text-5xl font-black text-red-600">{{ giocatori[indiceGiocatoreAttuale].nome }}</h1>
+                        <h1 class="text-5xl font-black text-[#d8b46a]">{{ giocatori[indiceGiocatoreAttuale].nome }}</h1>
                     </template>
                     
                     <template v-else>
@@ -142,12 +143,45 @@
                     @touchend.prevent="passaAlProssimo"
                     @mouseup.prevent="passaAlProssimo"
                     @mouseleave.prevent="passaAlProssimo"
-                    :class="ruoloVisibile ? 'bg-red-600 shadow-[0_0_50px_rgba(220,38,38,0.4)] border-red-500' : 'bg-gray-800 border-gray-600 border-dashed'"
+                    :class="ruoloVisibile ? 'bg-[#c99b45] shadow-[0_0_50px_rgba(216,180,106,0.4)] border-[#e6c179]' : 'bg-[#1a1f31] border-[#2c3350] border-dashed'"
                     class="w-48 h-48 mt-12 rounded-full text-2xl font-bold text-white border-4 transition-all duration-75 flex flex-col items-center justify-center"
                 >
                     <span>{{ ruoloVisibile ? 'RILASCIA' : 'PREMI' }}</span>
                 </button>
 
+            </div>
+            <div v-if="fase === 'schermataNarratore'">
+                <div class="text-[10px] tracking-[0.3em] uppercase text-[#c0453f] mb-2">Il Narratore</div>
+                <h1 class="text-2xl font-['Cinzel'] font-semibold text-white mb-1">Il villaggio</h1>
+                <p class="text-sm text-gray-400 mb-4">Tocca un abitante per svelarne il ruolo o eliminarlo.</p>
+
+                <div class="flex items-center justify-between mb-3">
+                    <span class="text-[10px] tracking-[0.25em] uppercase text-gray-400">In vita · {{ totaleVivi }}</span>
+                    <span class="text-[10px] tracking-[0.25em] uppercase text-[#c0453f]">Eliminati · {{ totaleMorti }}</span>
+                </div>
+
+                <ul class="space-y-2">
+                    <li v-for="(giocatore, index) in giocatori"
+                    :class="{ 'opacity-40': !giocatore.vivo }"
+                    class="bg-[#1a1f31] border border-[#2c3350] rounded-xl overflow-hidden transition-opacity">
+                        <div @click="selezionaGiocatore(index)"
+                        class="flex items-center gap-3 p-3 cursor-pointer">
+                            <div class="w-9 h-9 rounded-full bg-[#20263c] border border-[#2c3350] flex items-center justify-center font-['Cinzel'] text-sm"
+                            :class="giocatore.vivo ? 'text-[#c7cdea]' : 'text-[#7a5050]'">
+                                {{ giocatore.nome.charAt(0).toUpperCase() }}
+                            </div>
+                            <span class="flex-1 font-semibold text-gray-100" :class="{ 'line-through': !giocatore.vivo }">{{ giocatore.nome }}</span>
+                            <span v-if="!giocatore.vivo" class="text-[#c0453f] text-lg">†</span>
+                        </div>
+                        <div v-if="giocatoreSelezionato === index" class="px-3 pb-3">
+                            <p class="text-xs text-gray-400 mb-2">Ruolo: <span class="font-['Cinzel'] text-[#d8b46a]">{{ giocatore.ruolo }}</span></p>
+                            <button v-if="giocatore.vivo" @click="uccidiGiocatore(index)"
+                            class="w-full bg-[#c0453f]/10 border border-[#c0453f]/40 text-[#e08a83] font-semibold text-xs py-2 rounded-lg hover:bg-[#c0453f]/20 transition-colors">
+                                ☠ Elimina
+                            </button>
+                        </div>
+                    </li>
+                </ul>
             </div>
         </main>
     </div>

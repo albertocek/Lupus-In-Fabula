@@ -6,7 +6,8 @@ const app = Vue.createApp({
             ruoliSpeciali : {lupo : 0, veggente : 0, dottore : 0, puttana : 0},
             fase : "inserimentoGiocatori",
             indiceGiocatoreAttuale : 0,
-            ruoloVisibile : false
+            ruoloVisibile : false,
+            giocatoreSelezionato : null
         }
     },
 
@@ -68,8 +69,20 @@ const app = Vue.createApp({
                 this.indiceGiocatoreAttuale++;
 
                 if (this.indiceGiocatoreAttuale >= this.giocatori.length) {
-                    this.fase = 'inizioNotte';
+                    this.fase = 'schermataNarratore';
                 }
+            }
+        },
+
+        selezionaGiocatore(index){
+            if(this.giocatoreSelezionato == index)
+                    this.giocatoreSelezionato = null;
+            else this.giocatoreSelezionato = index
+        },
+
+        uccidiGiocatore(index){
+            if(this.giocatori[index].vivo){
+                this.giocatori[index].vivo = false;
             }
         }
     },
@@ -81,6 +94,22 @@ const app = Vue.createApp({
 
         totaleContadini(){
             return this.giocatori.length - this.totaleRuoliSpeciali;
+        },
+
+        totaleVivi(){
+            let cont = 0;
+            for(let i = 0; i < this.giocatori.length; i++){
+                if (this.giocatori[i].vivo) cont++
+            }
+            return cont;
+        },
+
+        totaleMorti(){
+            let cont = 0;
+            for(let i = 0; i < this.giocatori.length; i++){
+                if (!this.giocatori[i].vivo) cont++
+            }
+            return cont;
         }
     }
 
