@@ -32,8 +32,8 @@ const app = Vue.createApp({
             for(let ruolo in this.ruoliSpeciali){
                 this.ruoliSpeciali[ruolo] = 0;
             }
-            indiceGiocatoreAttuale = 0;
-            ruoloVisibile = false;
+            this.indiceGiocatoreAttuale = 0;
+            this.ruoloVisibile = false;
         },
 
         incrementaRuolo(ruolo){
@@ -45,7 +45,7 @@ const app = Vue.createApp({
         },
 
         cominciaPartita(){
-            mazzo = []
+            let mazzo = []
             for (let i = 0; i < this.ruoliSpeciali.lupo; i++) mazzo.push("Lupo");
             for (let i = 0; i < this.ruoliSpeciali.dottore; i++) mazzo.push("Dottore");
             for (let i = 0; i < this.ruoliSpeciali.veggente; i++) mazzo.push("Veggente");
@@ -85,6 +85,15 @@ const app = Vue.createApp({
                 this.giocatori[index].vivo = false;
                 this.giocatoreSelezionato = null;
             }
+        },
+        salvaStato(){
+            const statoPartita = {
+                giocatori : this.giocatori,
+                ruoliSpeciali : this.ruoliSpeciali,
+                fase : this.fase,
+                indiceGiocatoreAttuale : this.indiceGiocatoreAttuale
+            }
+            localStorage.setItem('statoPartita', JSON.stringify(statoPartita))
         }
     },
 
@@ -97,20 +106,40 @@ const app = Vue.createApp({
             return this.giocatori.length - this.totaleRuoliSpeciali;
         },
 
-        totaleVivi(){
-            let cont = 0;
-            for(let i = 0; i < this.giocatori.length; i++){
-                if (this.giocatori[i].vivo) cont++
-            }
-            return cont;
+        totaleVivi() {
+            return this.giocatori.filter(g => g.vivo).length;
         },
+        totaleMorti() {
+            return this.giocatori.filter(g => !g.vivo).length;
+        }
+    },
+    watch: {
+        giocatori: {
+            handler: 'salvaStato',
+            deep: true
+        },
+        ruoliSpeciali: {
+            handler: 'salvaStato',
+            deep: true
+        },
+        fase: 'salvaStato',
+        indiceGiocatoreAttuale: 'salvaStato'
+    },
 
-        totaleMorti(){
-            let cont = 0;
-            for(let i = 0; i < this.giocatori.length; i++){
-                if (!this.giocatori[i].vivo) cont++
+    mounted() {
+    const datiSalvati = localStorage.getItem('statoPartita');
+    
+        if (datiSalvati) {
+            try {
+                const stato = JSON.parse(datiSalvati);
+                this.giocatori = stato.giocatori;
+                this.ruoliSpeciali = stato.ruoliSpeciali;
+                this.fase = stato.fase;
+                this.indiceGiocatoreAttuale = stato.indiceGiocatoreAttuale;
+            } catch (errore) {
+                console.error("Dati corrotti nel LocalStorage, avvio partita pulita.");
+                localStorage.removeItem('lupus_dati');
             }
-            return cont;
         }
     }
 
