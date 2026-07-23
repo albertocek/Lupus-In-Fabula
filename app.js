@@ -83,6 +83,7 @@ const app = Vue.createApp({
         uccidiGiocatore(index){
             if(this.giocatori[index].vivo){
                 this.giocatori[index].vivo = false;
+                this.giocatoreSelezionato = null;
             }
         }
     },

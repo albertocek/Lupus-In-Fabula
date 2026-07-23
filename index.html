@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&amp;family=Manrope:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
@@ -171,13 +171,13 @@
                                 {{ giocatore.nome.charAt(0).toUpperCase() }}
                             </div>
                             <span class="flex-1 font-semibold text-gray-100" :class="{ 'line-through': !giocatore.vivo }">{{ giocatore.nome }}</span>
-                            <span v-if="!giocatore.vivo" class="text-[#c0453f] text-lg">†</span>
+                            <span v-if="!giocatore.vivo" class="text-[#c0453f] text-2xl leading-none">†</span>
                         </div>
                         <div v-if="giocatoreSelezionato === index" class="px-3 pb-3">
                             <p class="text-xs text-gray-400 mb-2">Ruolo: <span class="font-['Cinzel'] text-[#d8b46a]">{{ giocatore.ruolo }}</span></p>
                             <button v-if="giocatore.vivo" @click="uccidiGiocatore(index)"
                             class="w-full bg-[#c0453f]/10 border border-[#c0453f]/40 text-[#e08a83] font-semibold text-xs py-2 rounded-lg hover:bg-[#c0453f]/20 transition-colors">
-                                ☠ Elimina
+                                Elimina
                             </button>
                         </div>
                     </li>
