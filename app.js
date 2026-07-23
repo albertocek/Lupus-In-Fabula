@@ -4,7 +4,9 @@ const app = Vue.createApp({
             giocatori : [],
             nuovoGiocatore : "",
             ruoliSpeciali : {lupo : 0, veggente : 0, dottore : 0, puttana : 0},
-            fase : "inserimentoGiocatori"
+            fase : "inserimentoGiocatori",
+            indiceGiocatoreAttuale : 0,
+            ruoloVisibile : false
         }
     },
 
@@ -29,6 +31,8 @@ const app = Vue.createApp({
             for(let ruolo in this.ruoliSpeciali){
                 this.ruoliSpeciali[ruolo] = 0;
             }
+            indiceGiocatoreAttuale = 0;
+            ruoloVisibile = false;
         },
 
         incrementaRuolo(ruolo){
@@ -40,7 +44,6 @@ const app = Vue.createApp({
         },
 
         cominciaPartita(){
-
             mazzo = []
             for (let i = 0; i < this.ruoliSpeciali.lupo; i++) mazzo.push("Lupo");
             for (let i = 0; i < this.ruoliSpeciali.dottore; i++) mazzo.push("Dottore");
@@ -56,6 +59,18 @@ const app = Vue.createApp({
             }
 
             this.fase = "loopRivelazioneRuoli"
+        },
+
+        passaAlProssimo() {
+            if (this.ruoloVisibile) {
+                this.ruoloVisibile = false;
+                
+                this.indiceGiocatoreAttuale++;
+
+                if (this.indiceGiocatoreAttuale >= this.giocatori.length) {
+                    this.fase = 'inizioNotte';
+                }
+            }
         }
     },
 
