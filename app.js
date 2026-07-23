@@ -41,6 +41,21 @@ const app = Vue.createApp({
 
         cominciaPartita(){
 
+            mazzo = []
+            for (let i = 0; i < this.ruoliSpeciali.lupo; i++) mazzo.push("Lupo");
+            for (let i = 0; i < this.ruoliSpeciali.dottore; i++) mazzo.push("Dottore");
+            for (let i = 0; i < this.ruoliSpeciali.veggente; i++) mazzo.push("Veggente");
+            for (let i = 0; i < this.ruoliSpeciali.puttana; i++) mazzo.push("Puttana");
+            for (let i = 0; i < this.totaleContadini; i++) mazzo.push("Contadino");
+            for (let i = mazzo.length - 1; i > 0; i--){
+                const j = Math.floor(Math.random() * (i + 1));
+                [mazzo[i], mazzo[j]] = [mazzo[j], mazzo[i]];
+            }
+            for(let i = 0; i < mazzo.length; i++){
+                this.giocatori[i].ruolo = mazzo[i];
+            }
+
+            this.fase = "loopRivelazioneRuoli"
         }
     },
 
