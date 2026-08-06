@@ -11,7 +11,7 @@
 <body class="bg-[#07080d] h-screen overflow-hidden font-['Manrope']">
     
     <!-- Contenitore Mobile-First: max-w-md blocca la larghezza a quella di uno smartphone, mx-auto lo centra su schermi grandi -->
-    <div id="app" class="max-w-md mx-auto h-full flex flex-col bg-[#07080d] shadow-2xl">
+    <div id="app" class="max-w-md mx-auto min-h-[100dvh] pb-32 flex flex-col bg-[#07080d] shadow-2xl">
 
         <!-- HEADER: Fisso in alto -->
         <header class="py-6 text-center border-b border-gray-800">
@@ -182,6 +182,25 @@
                         </div>
                     </li>
                 </ul>
+                <button @click="mostraConfermaRiavvio = true"
+                class="w-full mt-8 bg-[#c99b45] hover:bg-[#a87f37] text-white font-bold py-4 rounded-xl transition-colors shadow-lg">
+                    Ricomincia Partita
+                </button>
+                <!-- Modale di Conferma -->
+                <div v-if="mostraConfermaRiavvio" class="fixed inset-0 bg-black/90 flex items-center justify-center p-4 z-50">
+                    <div class="bg-gray-800 p-6 rounded-3xl w-full max-w-sm text-center border border-gray-600 shadow-2xl">
+                        <h3 class="text-2xl font-bold text-white mb-8">Sei sicuro di voler ricominciare?</h3>
+                        
+                        <div class="flex gap-4">
+                            <button @click="mostraConfermaRiavvio = false" class="flex-1 py-4 bg-gray-600 text-white font-bold rounded-xl">
+                                Annulla
+                            </button>
+                            <button @click="ricominciaPartita" class="flex-1 py-4 bg-red-600 text-white font-bold rounded-xl">
+                                Continua
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </main>
     </div>

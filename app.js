@@ -7,7 +7,8 @@ const app = Vue.createApp({
             fase : "inserimentoGiocatori",
             indiceGiocatoreAttuale : 0,
             ruoloVisibile : false,
-            giocatoreSelezionato : null
+            giocatoreSelezionato : null,
+            mostraConfermaRiavvio : false
         }
     },
 
@@ -94,6 +95,22 @@ const app = Vue.createApp({
                 indiceGiocatoreAttuale : this.indiceGiocatoreAttuale
             }
             localStorage.setItem('statoPartita', JSON.stringify(statoPartita))
+        },
+        ricominciaPartita(){
+            this.mostraConfermaRiavvio = false
+
+            for (let ruolo in this.ruoliSpeciali){
+                this.ruoliSpeciali[ruolo] = 0;
+            }
+            this.giocatori.forEach(giocatore => {
+                giocatore.ruolo = null;
+                giocatore.vivo = true;
+            });
+            this.indiceGiocatoreAttuale = 0;
+            this.ruoloVisibile = false;
+            this.giocatoreSelezionato = null;
+
+            this.fase = 'inserimentoGiocatori';
         }
     },
 
@@ -138,7 +155,7 @@ const app = Vue.createApp({
                 this.indiceGiocatoreAttuale = stato.indiceGiocatoreAttuale;
             } catch (errore) {
                 console.error("Dati corrotti nel LocalStorage, avvio partita pulita.");
-                localStorage.removeItem('lupus_dati');
+                localStorage.removeItem('statoPartita');
             }
         }
     }
